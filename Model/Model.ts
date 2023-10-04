@@ -1,6 +1,6 @@
 import fs from 'fs'
 import csv from 'csv-parser'
-
+import { createObjectCsvWriter as createCsvWriter } from 'csv-writer';
 interface Data {
     title: string;
     value: string;
@@ -16,3 +16,16 @@ const readCSV = async (filePath: string) : Promise<Data[]> => {
         .on('error', (error) => reject(error));
     });
 };
+
+// escrevendo os dados
+const writeCSV = async(filePath : string, data : Data[]) : Promise<void>=>{
+    const csvWriter =  createCsvWriter({
+        path:filePath,
+        header : [
+            {id:'title', title:'TÍTULO'},
+            {id:'value', title:'VALOR'},
+        ],
+    });
+    return csvWriter.writeRecords(data)
+}
+
