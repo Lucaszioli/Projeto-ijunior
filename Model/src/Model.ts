@@ -3,6 +3,7 @@ import csv from 'csv-parser'
 import { createObjectCsvWriter as createCsvWriter } from 'csv-writer';
 interface Data {
     title: string;
+    country: string;
     value: string;
   }
 //Lendo os dados
@@ -16,13 +17,19 @@ const readCSV = async (filePath: string) : Promise<Data[]> => {
         .on('error', (error) => reject(error));
     });
 };
-
+const tabela : Data = {
+    title: '1',
+    country : '2',
+    value : '3'
+}
 // escrevendo os dados
 const writeCSV = async(filePath : string, data : Data[]) : Promise<void>=>{
+    data.push(tabela)
     const csvWriter =  createCsvWriter({
         path:filePath,
         header : [
             {id:'title', title:'TÍTULO'},
+            {id:'country',title:'PAIS'},
             {id:'value', title:'VALOR'},
         ],
     });
@@ -31,10 +38,10 @@ const writeCSV = async(filePath : string, data : Data[]) : Promise<void>=>{
 
 const main = async() =>{
     try{
-        const data = await readCSV('C:/Users/lucas/OneDrive - Universidade Federal de Minas Gerais/iJunior/Semana 3/Projeto/Projeto-ijunior/db');
+        const data = await readCSV('C:/Users/lucas/OneDrive - Universidade Federal de Minas Gerais/iJunior/Semana 3/Projeto/Projeto-ijunior/db/database.csv');
         console.log('Dados lidos:', data);
 
-        await writeCSV('C:/Users/lucas/OneDrive - Universidade Federal de Minas Gerais/iJunior/Semana 3/Projeto/Projeto-ijunior/db' , data);
+        await writeCSV('C:/Users/lucas/OneDrive - Universidade Federal de Minas Gerais/iJunior/Semana 3/Projeto/Projeto-ijunior/db/database.csv' , data);
         console.log('Dados escritos em outupt.csv')
     }catch(error){
         console.error('Erro:',error);
