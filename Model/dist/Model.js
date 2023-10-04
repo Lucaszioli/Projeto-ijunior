@@ -33,7 +33,9 @@ const tabela = {
 };
 // escrevendo os dados
 const writeCSV = (filePath, data) => __awaiter(void 0, void 0, void 0, function* () {
-    data.push(tabela);
+    data = [
+        tabela
+    ];
     const csvWriter = (0, csv_writer_1.createObjectCsvWriter)({
         path: filePath,
         header: [

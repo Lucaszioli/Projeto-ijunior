@@ -22,9 +22,12 @@ const tabela : Data = {
     country : '5',
     value : '7'
 }
+
 // escrevendo os dados
 const writeCSV = async(filePath : string, data : Data[]) : Promise<void>=>{
-    data.push(tabela)
+    data = [
+        tabela
+    ]
     const csvWriter =  createCsvWriter({
         path:filePath,
         header : [
