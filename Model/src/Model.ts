@@ -18,9 +18,9 @@ const readCSV = async (filePath: string) : Promise<Data[]> => {
     });
 };
 const tabela : Data = {
-    title: '1',
-    country : '2',
-    value : '3'
+    title: '2',
+    country : '5',
+    value : '7'
 }
 // escrevendo os dados
 const writeCSV = async(filePath : string, data : Data[]) : Promise<void>=>{

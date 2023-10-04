@@ -27,9 +27,9 @@ const readCSV = (filePath) => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 const tabela = {
-    title: '1',
-    country: '2',
-    value: '3'
+    title: '2',
+    country: '5',
+    value: '7'
 };
 // escrevendo os dados
 const writeCSV = (filePath, data) => __awaiter(void 0, void 0, void 0, function* () {
