@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "csv-parser": "^3.0.0",
-    "csv-writer": "^1.6.0"
+    "csv-writer": "^1.6.0",
+    "prompt-sync": "^4.2.0"
   },
   "devDependencies": {
     "@types/node": "^20.8.2"
