@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.writeCSV = exports.readCSV = void 0;
 const fs_1 = __importDefault(require("fs"));
 const csv_parser_1 = __importDefault(require("csv-parser"));
+const prompt = require("prompt-sync")();
 const csv_writer_1 = require("csv-writer");
 //Lendo os dados
 const readCSV = (filePath) => __awaiter(void 0, void 0, void 0, function* () {
@@ -33,12 +34,41 @@ const writeCSV = (filePath, data) => __awaiter(void 0, void 0, void 0, function*
     const csvWriter = (0, csv_writer_1.createObjectCsvWriter)({
         path: filePath,
         header: [
-            { id: 'title', title: 'TÍTULO' },
-            { id: 'country', title: 'PAIS' },
-            { id: 'value', title: 'VALOR' },
+            { id: 'nome', title: 'nome' },
+            { id: 'peso', title: 'peso' },
+            { id: 'valor', title: 'valor' },
+            { id: 'quantidade', title: 'quantidade' }
         ],
     });
     return csvWriter.writeRecords(data);
 });
 exports.writeCSV = writeCSV;
+const tabela = {
+    nome: '1',
+    peso: '2' + ' kg',
+    valor: '3',
+    quantidade: '4'
+};
+const main = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = yield (0, exports.readCSV)('./db/database.csv');
+        console.log('Dados lidos:', data);
+        const valor = prompt('1. Adicionar Item ao Inventário\n\
+        2. Remover Item do Inventário\n\
+        3. Listar Itens do Inventário\n\
+        4. Ver Valor Total do Inventário\n\
+        5. Ver Peso Total do Inventário\n\
+        6. Calcular Média de Valor dos Itens\n\
+        7. Calcular Média de Peso dos Itens\n\
+        8. Ver Quantidade Total de Itens no Inventário\n\
+        9. Ver Quantidade Total de Produtos no Inventário');
+        data.push(tabela);
+        yield (0, exports.writeCSV)('./db/database.csv', data);
+        console.log(data);
+    }
+    catch (error) {
+        console.error('Erro:', error);
+    }
+});
+main();
 //# sourceMappingURL=Model.js.map
