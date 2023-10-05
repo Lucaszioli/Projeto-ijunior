@@ -33,19 +33,14 @@ export const writeCSV = async(filePath : string, data : Data[]) : Promise<void>=
     });
     return csvWriter.writeRecords(data)
 }
-const tabela:Data = {
-    nome:'1',
-    peso:'2'+' kg',
-    valor:'3',
-    quantidade:'4'
-}
+
 
 
 const main = async() =>{
     try{
         const data = await readCSV('./db/database.csv');
         console.log('Dados lidos:', data);
-        const valor = prompt('1. Adicionar Item ao Inventário\n\
+        const escolha = prompt('        1. Adicionar Item ao Inventário\n\
         2. Remover Item do Inventário\n\
         3. Listar Itens do Inventário\n\
         4. Ver Valor Total do Inventário\n\
@@ -53,8 +48,31 @@ const main = async() =>{
         6. Calcular Média de Valor dos Itens\n\
         7. Calcular Média de Peso dos Itens\n\
         8. Ver Quantidade Total de Itens no Inventário\n\
-        9. Ver Quantidade Total de Produtos no Inventário')
-        data.push(tabela)
+        9. Ver Quantidade Total de Produtos no Inventário\n\ ')
+        if (escolha == 1){
+            const nome = prompt('Nome: ')
+            const peso = prompt('Peso: ')
+            const valor = prompt('Valor: ')
+            const quantidade = prompt('Quantidade: ')
+            const tabela:Data = {
+                nome:nome,
+                peso:peso + 'Kg',
+                valor:valor,
+                quantidade:quantidade
+            }
+            console.log(data.length)
+            if (data.length>0){
+                for(var i = 0;i<data.length;i++){
+                    if (Object.values(data[i]).includes(nome)){
+                        console.log("algo deu errado :(")
+                        break}
+                    else if(i == data.length-1){
+                        data.push(tabela)
+                        console.log("DEU CERTO!")
+                        break
+                    }}
+            }else{data.push(tabela)}
+        }
         await writeCSV('./db/database.csv' , data);
         console.log(data)
     }catch(error){
