@@ -33,9 +33,16 @@ export const writeCSV = async(filePath : string, data : Data[]) : Promise<void>=
     });
     return csvWriter.writeRecords(data)
 }
-
-
-
+    if(fs.existsSync('./db/database.csv')){var variavel = 0}else{variavel = 1}
+    if (variavel == 1){
+        fs.writeFile('./db/database.csv','', (err) => {
+        if (err) {
+            console.error('Ocorreu um erro ao criar o arquivo:', err);
+        } else {
+            console.log();
+        }
+        })
+    };
 const main = async() =>{
     try{
         const data = await readCSV('./db/database.csv');
@@ -60,7 +67,6 @@ const main = async() =>{
                 valor:valor,
                 quantidade:quantidade
             }
-            console.log(data.length)
             if (data.length>0){
                 for(var i = 0;i<data.length;i++){
                     if (Object.values(data[i]).includes(nome)){
@@ -71,7 +77,10 @@ const main = async() =>{
                         console.log("DEU CERTO!")
                         break
                     }}
-            }else{data.push(tabela)}
+            }else{
+                data.push(tabela)
+                console.log("DEU CERTO!")
+            }
         }
         await writeCSV('./db/database.csv' , data);
         console.log(data)

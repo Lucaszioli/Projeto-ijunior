@@ -43,6 +43,23 @@ const writeCSV = (filePath, data) => __awaiter(void 0, void 0, void 0, function*
     return csvWriter.writeRecords(data);
 });
 exports.writeCSV = writeCSV;
+if (fs_1.default.existsSync('./db/database.csv')) {
+    var variavel = 0;
+}
+else {
+    variavel = 1;
+}
+if (variavel == 1) {
+    fs_1.default.writeFile('./db/database.csv', '', (err) => {
+        if (err) {
+            console.error('Ocorreu um erro ao criar o arquivo:', err);
+        }
+        else {
+            console.log();
+        }
+    });
+}
+;
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = yield (0, exports.readCSV)('./db/database.csv');
@@ -67,7 +84,6 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
                 valor: valor,
                 quantidade: quantidade
             };
-            console.log(data.length);
             if (data.length > 0) {
                 for (var i = 0; i < data.length; i++) {
                     if (Object.values(data[i]).includes(nome)) {
@@ -83,6 +99,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
             }
             else {
                 data.push(tabela);
+                console.log("DEU CERTO!");
             }
         }
         yield (0, exports.writeCSV)('./db/database.csv', data);
