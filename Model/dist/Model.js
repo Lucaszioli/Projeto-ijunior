@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.writeCSV = exports.readCSV = void 0;
 const fs_1 = __importDefault(require("fs"));
 const csv_parser_1 = __importDefault(require("csv-parser"));
 const csv_writer_1 = require("csv-writer");
@@ -26,16 +27,9 @@ const readCSV = (filePath) => __awaiter(void 0, void 0, void 0, function* () {
             .on('error', (error) => reject(error));
     });
 });
-const tabela = {
-    title: '2',
-    country: '5',
-    value: '7'
-};
+exports.readCSV = readCSV;
 // escrevendo os dados
 const writeCSV = (filePath, data) => __awaiter(void 0, void 0, void 0, function* () {
-    data = [
-        tabela
-    ];
     const csvWriter = (0, csv_writer_1.createObjectCsvWriter)({
         path: filePath,
         header: [
@@ -46,16 +40,5 @@ const writeCSV = (filePath, data) => __awaiter(void 0, void 0, void 0, function*
     });
     return csvWriter.writeRecords(data);
 });
-const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const data = yield readCSV('C:/Users/lucas/OneDrive - Universidade Federal de Minas Gerais/iJunior/Semana 3/Projeto/Projeto-ijunior/db/database.csv');
-        console.log('Dados lidos:', data);
-        yield writeCSV('C:/Users/lucas/OneDrive - Universidade Federal de Minas Gerais/iJunior/Semana 3/Projeto/Projeto-ijunior/db/database.csv', data);
-        console.log('Dados escritos em outupt.csv');
-    }
-    catch (error) {
-        console.error('Erro:', error);
-    }
-});
-main();
+exports.writeCSV = writeCSV;
 //# sourceMappingURL=Model.js.map
